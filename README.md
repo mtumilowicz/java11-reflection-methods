@@ -5,6 +5,7 @@ Gathering basic methods info using reflection.
 https://github.com/mtumilowicz/java11-reflection-executables
 
 * `java.lang.reflect.Method` is used to represent method
+    * `Class<?> getReturnType()`
 * `Class` provides us with four methods to gather information
 concerning methods:
     * all methods:
