@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.com/mtumilowicz/java11-reflection-methods.svg?branch=master)](https://travis-ci.com/mtumilowicz/java11-reflection-methods)
+
 # java11-reflection-methods
 Gathering basic methods info using reflection.
 
