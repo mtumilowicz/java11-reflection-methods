@@ -78,4 +78,20 @@ public class MethodReflectionTest {
         assertThat(Child.class.getMethod("publicParentMethod").toGenericString(),
                 is("public void Parent.publicParentMethod()"));
     }
+
+    @Test(expected = NoSuchMethodException.class)
+    public void getDeclaredMethod_notFound() throws NoSuchMethodException {
+        Child.class.getDeclaredMethod("not exists");
+    }
+
+    @Test
+    public void getDeclaredMethod_private() throws NoSuchMethodException {
+        assertThat(Child.class.getDeclaredMethod("privateChildMethod", String.class).toGenericString(),
+                is("private int Child.privateChildMethod(java.lang.String)"));
+    }
+
+    @Test(expected = NoSuchMethodException.class)
+    public void getDeclaredMethod_parent() throws NoSuchMethodException {
+        Child.class.getDeclaredMethod("publicParentMethod");
+    }
 }
