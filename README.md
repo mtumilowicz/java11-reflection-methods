@@ -24,9 +24,7 @@ concerning methods:
             find a method in `getMethods()` by its name and parameters 
             or throwing `NoSuchMethodException` (if the method cannot be found)
         
-            the algorithm of finding method is quite complex 
-            (note that there can be more than one method that meet
-            the requirements - Object is a superclass of all classes)  
+            the algorithm of finding method is quite complex:
             more info: https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Class.html#getMethod(java.lang.String,java.lang.Class...)
                 
             there may be more than one method with matching name and
@@ -38,3 +36,73 @@ concerning methods:
            you can think of this method as a way of trying to 
            find a method in `getDeclaredMethods()` by its name and parameters 
            or throwing `NoSuchMethodException` (if the method cannot be found)
+           
+# project description
+We will show how to obtain info about declared methods.
+
+Class structure is as simple as it can be:
+* parent
+    ```
+    class Parent implements ParentInterface {
+        private long privateParentMethod(String name) {
+            return 1;
+        }
+    
+        void packagePrivateParentMethod() {
+    
+        }
+    
+        protected String protectedParentMethod(int x1, int x2) {
+            return "";
+        }
+    
+        public void publicParentMethod() {
+    
+        }
+        
+        public CharSequence override(int count) {
+            return "";
+        }
+    }
+    
+    interface ParentInterface {
+        default void defaultParentInterfaceMethod() {
+        }
+    }
+    ```
+* child
+    ```
+    class Child extends Parent implements ChildInterface {
+        private int privateChildMethod(String name) {
+            return 1;
+        }
+        
+        void packagePrivateChildMethod() {
+            
+        }
+        
+        protected String protectedChildMethod(int x1, int x2) {
+            return "";    
+        }
+        
+        public void publicChildMethod() {
+            
+        }
+    
+        @Override
+        public String override(int count) {
+            return "";
+        }
+    }
+    
+    interface ChildInterface {
+        default void defaultChildInterfaceMethod() {
+        }
+    }
+    ```
+
+All tests are in `MethodReflectionTest` class
+* getMethods
+* getDeclaredMethods
+* get method by name and params
+* get declared method by name and params
