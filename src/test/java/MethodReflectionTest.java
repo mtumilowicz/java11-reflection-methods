@@ -90,6 +90,12 @@ public class MethodReflectionTest {
                 is("private int Child.privateChildMethod(java.lang.String)"));
     }
 
+    @Test(expected = NoSuchMethodException.class) // must be specific
+    public void getDeclaredMethod_private_byObjectParam() throws NoSuchMethodException {
+        assertThat(Child.class.getDeclaredMethod("privateChildMethod", Object.class).toGenericString(),
+                is("private int Child.privateChildMethod(java.lang.String)"));
+    }
+
     @Test(expected = NoSuchMethodException.class)
     public void getDeclaredMethod_parent() throws NoSuchMethodException {
         Child.class.getDeclaredMethod("publicParentMethod");
