@@ -24,6 +24,8 @@ concerning methods:
             find a method in `getMethods()` by its name and parameters 
             or throwing `NoSuchMethodException` (if the method cannot be found)
         
+            **note that argument type has to be exact**
+        
             the algorithm of finding method is quite complex:
             more info: https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Class.html#getMethod(java.lang.String,java.lang.Class...)
                 
@@ -147,7 +149,7 @@ All tests are in `MethodReflectionTest` class
     assertThat(methodsAsString, containsString("protected java.lang.String Child.protectedChildMethod(int,int)"));
     ```
 * get method by name and params
-    * not exists - `NoSuchMethodException`
+    * not found - `NoSuchMethodException`
         ```
         @Test(expected = NoSuchMethodException.class)
         public void getMethod_notFound() throws NoSuchMethodException {
@@ -172,3 +174,30 @@ All tests are in `MethodReflectionTest` class
                 is("public void Parent.publicParentMethod()"));
         ```
 * get declared method by name and params
+    * not found - `NoSuchMethodException`
+        ```
+        @Test(expected = NoSuchMethodException.class)
+        public void getDeclaredMethod_notFound() throws NoSuchMethodException {
+            Child.class.getDeclaredMethod("not exists");
+        }
+        ```
+    * private
+        ```
+        assertThat(Child.class.getDeclaredMethod("privateChildMethod", String.class).toGenericString(),
+                is("private int Child.privateChildMethod(java.lang.String)"));
+        ```
+    * argument must be exact
+        ```
+        @Test(expected = NoSuchMethodException.class)
+        public void getMethod_public_byObjectParam() throws NoSuchMethodException {
+            assertThat(Child.class.getDeclaredMethod("privateChildMethod", Object.class).toGenericString(),
+                    is("private int Child.privateChildMethod(java.lang.String)"));
+        }
+        ```
+    * from parent
+        ```
+        @Test(expected = NoSuchMethodException.class)
+        public void getDeclaredMethod_parent() throws NoSuchMethodException {
+            Child.class.getDeclaredMethod("publicParentMethod");
+        }
+        ```
