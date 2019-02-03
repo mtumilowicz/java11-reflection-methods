@@ -1,7 +1,7 @@
 [![Build Status](https://travis-ci.com/mtumilowicz/java11-reflection-methods.svg?branch=master)](https://travis-ci.com/mtumilowicz/java11-reflection-methods)
 
 # java11-reflection-methods
-Gathering basic methods info using reflection.
+Using reflection to get information about the methods of a class.
 
 # preface
 https://github.com/mtumilowicz/java11-reflection-executables
